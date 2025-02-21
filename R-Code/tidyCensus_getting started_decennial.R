@@ -28,36 +28,35 @@ library(highcharter)
 # the 2020 decennial census using the TidyCensus package
 
 
-# before we get to far, we need to set our working directory. So first save this file.
+# Before we get to far, we need to set our working directory. So first save this file.
 # From the Session Menu --> Set Working Directory --> To Source File Location
-getwd()
+getwd() #this will display your workign directory
 
 
 #Display all the variable in the 2020 Decennial data set
 vDec <- load_variables(2020, "dhc", cache = TRUE)
 View(vDec)
 
-#name, label, concept and lowest level of geography available are displayed.
+#name, label, concept are displayed.
 # this table is searchable
-#search for the word Poverty and we find  there are two variables of interest
+#search for P1_001N - this is the overall total population
 
-
+# Now lets go and use Tidy Census to retrieve this data so we can use it in Tableau
 totalPop <- get_decennial(
   geography = "county", #could use County or State
- state = "IA",
-  variables = "P1_001N",  #Total Population
-  year = 2020,
+ state = "IA", #since we said county, we can also tell it for which state
+  variables = "P1_001N",  #Total Population variable
+  year = 2020,  #census year - note 2010 has a slightly different format 
   sumfile = "dhc",  #Demographic and Housing Characteristics
-  geometry = TRUE
+  geometry = TRUE #TRUE or FALSE
 )
 totalPop
 
 #It runs really slow if you do this for State and all counties with geometry!
 #plot(totalPop["value"])
 
-#the sf package allows us to write to a shapefile
+#the sf package allows us to write to a shapefile or geojson
 st_write(totalPop, "totalPop_IAcounties.shp")
-
 
 
 #Lets do this again, but for all states and then save it as a csv
@@ -72,7 +71,6 @@ totalPopStates <- get_decennial(
 totalPopStates
 
 write_csv2(totalPopStates, "totalPopStates.csv", append = FALSE)
-
 
 
 #Same as above but for the Census tracts in Iowa and with geometry
