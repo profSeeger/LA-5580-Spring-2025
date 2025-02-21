@@ -1,7 +1,6 @@
 ## ----Install-packages---------------------------------------------------------
 #load one at a time
 install.packages("tidycensus")
-install.packages("tidyverse")
 install.packages("dplyr") #this is actually also loaded in the tidyverse
 #or several at once, these are more for visual display
 install.packages(c("tidyverse", "plotly"))
@@ -23,14 +22,14 @@ library(plotly)
 library(highcharter)
 
 
-## ----Loading Tidy Census ACS Data---------------------------------------------
+## ----Loading Tidy Census Data---------------------------------------------
 # For this example, we will start with getting the total population for 
 # the 2020 decennial census using the TidyCensus package
 
 
 # Before we get to far, we need to set our working directory. So first save this file.
 # From the Session Menu --> Set Working Directory --> To Source File Location
-getwd() #this will display your workign directory
+getwd() #this will display your working directory
 
 
 #Display all the variable in the 2020 Decennial data set
@@ -44,7 +43,7 @@ View(vDec)
 # Now lets go and use Tidy Census to retrieve this data so we can use it in Tableau
 totalPop <- get_decennial(
   geography = "county", #could use County or State
- state = "IA", #since we said county, we can also tell it for which state
+  state = "IA", #since we said county, we can also tell it for which state
   variables = "P1_001N",  #Total Population variable
   year = 2020,  #census year - note 2010 has a slightly different format 
   sumfile = "dhc",  #Demographic and Housing Characteristics
