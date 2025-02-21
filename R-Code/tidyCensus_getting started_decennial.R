@@ -7,7 +7,7 @@ install.packages("dplyr") #this is actually also loaded in the tidyverse
 install.packages(c("tidyverse", "plotly"))
 install.packages("highcharter") #interactive charts
 #and these help with spatial
-install.packages(c("sf", "tigris"))
+install.packages(c("sf", "tigris", "mapview"))
 
 
 ## ----Load Libraries-----------------------------------------------------------
@@ -17,7 +17,7 @@ library(tidyverse)
 library(dplyr)
 library(sf)
 library(tigris)
-
+library(mapview)
 library(ggplot2)
 library(plotly)
 library(highcharter)
