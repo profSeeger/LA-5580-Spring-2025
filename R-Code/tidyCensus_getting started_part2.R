@@ -23,7 +23,6 @@ library(ggplot2)
 library(plotly)
 library(highcharter)
 
-
 ## ----Loading Tidy Census ACS Data---------------------------------------------
 # For this example, we are going to look at Poverty
 # To calculate income to poverty, you divide a person or family's total 
@@ -53,7 +52,7 @@ View(ACS5_2023_variables)
 # Now that we have two variables to work with, we want to retrieve them from 
 # The US Census using a package called TidyCensus
 
-# Save the results of this in data frame which I am calling poverty_df
+# Save the results of this in data frame which I am calling something like poverty_df
 
 #Example looking at ACS1 data, remove the survey = "acs1" to use acs5
 poverty_est_df <- get_acs(geography = "county", 
@@ -118,8 +117,14 @@ st_write(poverty_df, "iowa_poverty.shp")
 #so save as a geojson!
 st_write(poverty_df, "iowa_poverty.geojson")
 
-#If we just wanted the CV, we could run the code above with geometry = FALSE
-
-
-
+#If we just wanted the data asa CSV, we could run the code above with geometry = FALSE
+poverty_df_noGeo <- get_acs(geography = "county", 
+                      variables = c(poverty_est = "B05010_001",
+                                    poverty_und1 = "B05010_002"),
+                      state = "Iowa", 
+                      output = "wide",
+                      geometry = FALSE,
+                      year = 2023)
+view(poverty_df_noGeo)
+write_csv2(poverty_df_noGeo, "povertyRatio.csv", append = FALSE)
 
