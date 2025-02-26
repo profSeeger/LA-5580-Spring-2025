@@ -10,6 +10,7 @@ install.packages("highcharter") #interactive charts
 install.packages(c("sf", "tigris"))
 
 
+
 ## ----Load Libraries-----------------------------------------------------------
 #load one at a time
 library(tidycensus)
