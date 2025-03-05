@@ -37,7 +37,7 @@ totalPopIA_tracts <- get_decennial(
   geometry = TRUE
 )
 
-totalPopIA_tracts #note the 
+totalPopIA_tracts #note the value is actually located in a column named "value"
 
 
 #basic plot
