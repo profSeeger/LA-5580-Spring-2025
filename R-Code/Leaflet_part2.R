@@ -107,6 +107,8 @@ myMap <- leaflet(income_data) %>%
 
 myMap
 
+
+
 install.packages("htmlwidgets")
 library(htmlwidgets)
 
