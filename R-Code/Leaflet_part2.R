@@ -50,3 +50,67 @@ mapview(totalPopIA_tracts, zcol = "value")
 
 # You can export this from Viewer tab and then select Export --> Save as Web Page ...
 # this will create an html page that you can then rename and copy to your GitHub repo and link to it there.
+
+
+
+
+#building on lecture 7A
+# We need Leaflet
+install.packages("leaflet") 
+library(leaflet)
+
+
+# Get median household income data for a state (e.g., California) at the county level
+income_data <- get_acs(
+  geography = "county",
+  variables = "B19013_001", # Median household income variable
+  state = "CA", # Change to your desired state
+  year = 2023,
+  geometry = TRUE # Get spatial data
+)
+
+# Ensure spatial data is in WGS84 (EPSG:4326) for Leaflet
+income_data <- st_transform(income_data, crs = 4326)
+
+# Define a color palette for the income values
+income_pal <- colorNumeric(
+  palette = "YlGnBu", # Yellow-Green-Blue color scheme
+  domain = income_data$estimate
+)
+
+
+# Create Leaflet interactive map
+myMap <- leaflet(income_data) %>%
+  addProviderTiles(providers$CartoDB.Positron) %>%  # Use a light basemap
+  addPolygons(
+    fillColor = ~income_pal(estimate),
+    color = "black",
+    weight = 0.5,
+    smoothFactor = 0.3,
+    fillOpacity = 0.7,
+    label = ~paste(NAME, "<br>Median Income: $", format(estimate, big.mark = ",")),
+    highlightOptions = highlightOptions(
+      weight = 2,
+      color = "red",
+      fillOpacity = 0.9,
+      bringToFront = TRUE
+    )
+  ) %>%
+  addLegend(
+    position = "bottomright",
+    pal = income_pal,
+    values = income_data$estimate,
+    title = "Median Household Income",
+    labFormat = labelFormat(prefix = "$")
+  ) %>%
+  addControl("<strong>California Median Household Income (2023)</strong>", position = "topright", className = "leaflet-control-title")
+
+myMap
+
+install.packages("htmlwidgets")
+library(htmlwidgets)
+
+# Save the map as an HTML widget
+saveWidget(myMap, file = "myMap.html")
+
+
