@@ -64,7 +64,7 @@ library(leaflet)
 income_data <- get_acs(
   geography = "county",
   variables = "B19013_001", # Median household income variable
-  state = "CA", # Change to your desired state
+  state = "IA", # Change to your desired state
   year = 2023,
   geometry = TRUE # Get spatial data
 )
@@ -87,7 +87,7 @@ myMap <- leaflet(income_data) %>%
     color = "black",
     weight = 0.5,
     smoothFactor = 0.3,
-    fillOpacity = 0.7,
+    fillOpacity = 0.6,
     label = ~paste(NAME, "<br>Median Income: $", format(estimate, big.mark = ",")),
     highlightOptions = highlightOptions(
       weight = 2,
@@ -103,7 +103,7 @@ myMap <- leaflet(income_data) %>%
     title = "Median Household Income",
     labFormat = labelFormat(prefix = "$")
   ) %>%
-  addControl("<strong>California Median Household Income (2023)</strong>", position = "topright", className = "leaflet-control-title")
+  addControl("<strong>Iowa Median Household Income (2023)</strong>", position = "topright", className = "leaflet-control-title")
 
 myMap
 
@@ -113,6 +113,6 @@ install.packages("htmlwidgets")
 library(htmlwidgets)
 
 # Save the map as an HTML widget
-saveWidget(myMap, file = "myMap.html")
+saveWidget(myMap, file = "IowaHouseholdIncome_v2.html")
 
 
