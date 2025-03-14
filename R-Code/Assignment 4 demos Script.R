@@ -5,6 +5,7 @@ install.packages("tidyverse")
 install.packages(c("sf", "tigris"))
 install.packages("leaflet") 
 install.packages("htmlwidgets")
+install.packages("htmltools")
 
 ## ----Load Libraries-----------------------------------------------------------
 #load one at a time
@@ -14,6 +15,7 @@ library(sf)
 library(tigris)
 library(leaflet)
 library(htmlwidgets)
+library(htmltools)
 
 
 
@@ -68,7 +70,17 @@ myMap <- leaflet(myVariableTransform) %>%
     fillOpacity = 0.6,  #transparency value of 0-1, you can edit this
     #Prof Seeger will provide more detail on this label in an updated version
     #replace B19013_001E with your  value
-    label = ~paste(NAME, "- Median Income Demo: $", format(B19013_001E, big.mark = ",")),
+    label = ~paste0(NAME, " Median Income: $", format(B19013_001E, big.mark = ",")),
+    labelOptions = labelOptions(
+      sticky = FALSE,  # Ensures tooltips disappear when not hovering
+      interactive = TRUE,  # Ensures tooltips respond to mouse hover
+      opacity = 1,  # Keeps tooltips visible when hovered
+      style = list(
+        "background-color" = "white",
+        "border" = "1px solid black",
+        "padding" = "5px"
+      )
+    ),
     highlightOptions = highlightOptions(
       weight = 2,
       color = "red", #the outline color of the selected feature
@@ -79,7 +91,7 @@ myMap <- leaflet(myVariableTransform) %>%
   addLegend(
     position = "bottomright",
     pal = income_pal,
-    values = myVariableTransform$B19013_001E, #replace B19013_001Ewith your  value
+    values = myVariableTransform$B19013_001E, #replace B19013_001E with your  value
     title = "Median Household Income",   #you will need to edit this!
     labFormat = labelFormat(prefix = "$")
   ) %>%
