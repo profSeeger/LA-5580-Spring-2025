@@ -47,16 +47,33 @@ st_write(myVariable, "WednesdayDemo2.geojson")
 # Ensure spatial data is in WGS84 (EPSG:4326) for Leaflet
 myVariableTransform <- st_transform(myVariable, crs = 4326)
 
-# Define a color palette for the income values
-# I will try and provide a few more options for colors, 
-# so check back for an updated version of this r file
-#You will need to replace B19013_001E with the column name 
-# of the variable you want to map. You need to fix this throughout 
-# the rest of the code. 
+
+
+# Define a color palette to use for the values
+# You will need to replace B19013_001E with the column name found in the list
+# of the variable you want to map. You need to adjust this throughout 
+# the rest of the leaflet mapping code. 
+
+# As for the colors you can adjust the value of the palette =
+# "Blues" (Various shades of blue)
+# "Reds" (Various shades of red)
+# "Greens" (Various shades of green)
+# "Oranges" (Various shades of orange)
+# "Purples" (Various shades of purple)
+# "BuGn" (Blue-Green gradient)
+# "RdYlBu" (Red-Yellow-Blue diverging)
+# "Viridis" (Colorblind-friendly, yellow to blue)
+
 income_pal <- colorNumeric(
   palette = "YlGnBu", # Yellow-Green-Blue color scheme
   domain = myVariableTransform$B19013_001E
 )
+
+#A manually defined color pallete can alos be created
+#income_pal <- colorNumeric(
+#  palette = c("#440154", "#21908C", "#FDE725"),  # Dark purple → Teal → Yellow
+#  domain = myVariableTransform$B19013_001E
+#)
 
 
 # Create Leaflet interactive map
