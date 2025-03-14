@@ -67,8 +67,8 @@ myMap <- leaflet(myVariableTransform) %>%
     smoothFactor = 0.3,
     fillOpacity = 0.6,  #transparency value of 0-1, you can edit this
     #Prof Seeger will provide more detail on this label in an updated version
-    #replace B19013_001Ewith your  value
-    label = ~paste(NAME, "<br>Median Income Demo: $", format(B19013_001E, big.mark = ",")),
+    #replace B19013_001E with your  value
+    label = ~paste(NAME, "- Median Income Demo: $", format(B19013_001E, big.mark = ",")),
     highlightOptions = highlightOptions(
       weight = 2,
       color = "red", #the outline color of the selected feature
