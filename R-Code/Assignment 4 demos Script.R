@@ -69,11 +69,11 @@ income_pal <- colorNumeric(
   domain = myVariableTransform$B19013_001E
 )
 
-#A manually defined color pallete can alos be created
-#income_pal <- colorNumeric(
+# A manually defined color pallete can alos be created
+# income_pal <- colorNumeric(
 #  palette = c("#440154", "#21908C", "#FDE725"),  # Dark purple → Teal → Yellow
 #  domain = myVariableTransform$B19013_001E
-#)
+# )
 
 
 # Create Leaflet interactive map
@@ -93,9 +93,9 @@ myMap <- leaflet(myVariableTransform) %>%
       interactive = TRUE,  # Ensures tooltips respond to mouse hover
       opacity = 1,  # Keeps tooltips visible when hovered
       style = list(
-        "background-color" = "white",
-        "border" = "1px solid black",
-        "padding" = "5px"
+        "background-color" = "white", #optionally change if it fits your design
+        "border" = "1px solid black", #You could make this larger, but don't
+        "padding" = "5px" #distance from text to edge of box
       )
     ),
     highlightOptions = highlightOptions(
