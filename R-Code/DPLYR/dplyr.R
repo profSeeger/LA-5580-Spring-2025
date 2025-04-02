@@ -41,7 +41,7 @@ scores_2017_math <-  scores %>% filter(School.Year == 2017 & Topic == 'Math')
 # change Proficiency column from string to numeric
 scores <- scores %>%
   mutate(percentProficient = as.numeric(X..Proficient))
-
+glimpse(scores)
 
 # remove records that have no results. NA
 scores_clean1 <- scores %>% drop_na(percentProficient)
@@ -53,7 +53,7 @@ scores_clean2 <- scores %>% filter(Total != 0)
 
 ## ----GroupBy------------------------------------------------------
 
-scores_mean_math <- scores %>%
+scores_mean_math <- scores_clean2 %>%
   filter(Topic == 'Math') %>%
   group_by(District.Name) %>%
   summarize(Math_Mean = mean(percentProficient, na.rm=TRUE))
